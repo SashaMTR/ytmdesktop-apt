@@ -1,0 +1,18 @@
+Package: youtube-music-desktop-app
+Version: 2.0.11
+Architecture: amd64
+Maintainer: NovusTheory <novustheory@gmail.com>
+Installed-Size: 300162
+Depends: libgtk-3-0, libnotify4, libnss3, libxtst6, xdg-utils, libatspi2.0-0, libdrm2, libgbm1, libxcb-dri3-0, kde-cli-tools | kde-runtime | trash-cli | libglib2.0-bin | gvfs-bin
+Recommends: pulseaudio | libasound2
+Suggests: gir1.2-gnomekeyring-1.0, libgnome-keyring0, lsb-release
+Filename: ./pool/youtube-music-desktop-app_2.0.11_amd64.deb
+Size: 91575948
+MD5sum: 917913be51cf7e11caffa625aab9fe2d
+SHA1: 754dadcf243e45992806b0b887b79d37bafe20de
+SHA256: 7b6bb2c11257bc53be78fd6c18bcdb16e9aea7c93385d7ac4a108d694f308fa4
+Section: sound
+Priority: optional
+Description: YouTube Music Desktop App
+ YouTube Music Desktop App
+

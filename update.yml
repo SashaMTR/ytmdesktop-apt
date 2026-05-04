@@ -1,0 +1,44 @@
+name: Update YTMDesktop package
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6am UTC
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install deps
+        run: sudo apt-get install -y dpkg-dev apt-utils gnupg
+
+      - name: Import GPG key
+        run: |
+          echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
+
+      - name: Fetch latest package
+        run: bash get_new_package.sh
+
+      - name: Build repo metadata
+        env:
+          KEY_PASSPHRASE: ${{ secrets.GPG_KEY_PASSPHRASE }}
+        run: make all
+
+      - name: Export public GPG key
+        run: |
+          gpg --armor --export "YTMDesktop Apt Repository" > ytmdesktop-apt.gpg.asc
+          gpg --export "YTMDesktop Apt Repository" > ytmdesktop-apt.gpg
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --staged --quiet || git commit -m "Update YTMDesktop package"
+          git push
